@@ -14,19 +14,21 @@ export default async function DashboardPage() {
 	}
 
 	return (
-		<main className="flex items-center justify-center min-h-screen p-6">
-			<Card className="w-full max-w-md">
-				<CardHeader>
-					<CardTitle className="text-2xl">Dashboard</CardTitle>
-				</CardHeader>
-				<CardContent className="space-y-4">
-					<p className="text-muted-foreground">
-						Welcome, {session.user.name || "User"}!
-					</p>
-					<p className="text-muted-foreground">Email: {session.user.email}</p>
-					<SignOutButton />
-				</CardContent>
-			</Card>
-		</main>
+		<div className="container mx-auto px-4 py-8">
+			<div className="max-w-2xl mx-auto">
+				<Card>
+					<CardHeader>
+						<CardTitle className="text-2xl">Dashboard</CardTitle>
+					</CardHeader>
+					<CardContent className="space-y-4">
+						<p className="text-muted-foreground">
+							Welcome, {session.user.name || "User"}!
+						</p>
+						<p className="text-muted-foreground">Email: {session.user.email}</p>
+						<SignOutButton />
+					</CardContent>
+				</Card>
+			</div>
+		</div>
 	);
 }
