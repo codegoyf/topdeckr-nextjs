@@ -24,6 +24,7 @@ model User {
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
+  decks         Deck[]
 
   @@unique([email])
   @@map("user")
@@ -72,4 +73,29 @@ model Verification {
   updatedAt  DateTime?
 
   @@map("verification")
+}
+
+model Deck {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cards       Card[]
+
+  @@map("deck")
+}
+
+model Card {
+  id          String   @id @default(uuid())
+  name        String
+  quantity    Int      @default(1)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deckId      String
+  deck        Deck     @relation(fields: [deckId], references: [id], onDelete: Cascade)
+
+  @@map("card")
 }
