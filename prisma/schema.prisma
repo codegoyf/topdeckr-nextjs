@@ -76,26 +76,48 @@ model Verification {
 }
 
 model Deck {
-  id          String   @id @default(uuid())
+  id          String     @id @default(uuid())
   name        String
   description String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
   userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  cards       Card[]
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deckCards   DeckCard[]
 
   @@map("deck")
 }
 
 model Card {
-  id          String   @id @default(uuid())
-  name        String
-  quantity    Int      @default(1)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  deckId      String
-  deck        Deck     @relation(fields: [deckId], references: [id], onDelete: Cascade)
+  id              String     @id @default(uuid())
+  scryfallId      String     @unique
+  name            String
+  manaCost        String?
+  typeLine        String
+  oracleText      String?
+  colors          String[]
+  cmc             Int?
+  rarity          String?
+  setCode         String?
+  collectorNumber String?
+  imageUrl        String?
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  deckCards       DeckCard[]
 
   @@map("card")
+}
+
+model DeckCard {
+  id        String   @id @default(uuid())
+  quantity  Int      @default(1)
+  deckId    String
+  cardId    String
+  deck      Deck     @relation(fields: [deckId], references: [id], onDelete: Cascade)
+  card      Card     @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([deckId, cardId])
+  @@map("deck_card")
 }

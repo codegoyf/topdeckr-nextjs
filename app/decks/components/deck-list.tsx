@@ -1,6 +1,7 @@
-import type { Deck } from "@prisma/client";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { Deck } from "@/generated/prisma";
 
 interface DeckListProps {
 	decks: Deck[];
@@ -37,9 +38,11 @@ export function DeckList({ decks }: DeckListProps) {
 							<span>{new Date(deck.updatedAt).toLocaleDateString()}</span>
 						</div>
 						<div className="flex gap-2">
-							<Button variant="outline" size="sm" className="flex-1">
-								View Deck
-							</Button>
+							<Link href={`/decks/${deck.id}`}>
+								<Button variant="outline" size="sm" className="flex-1">
+									View Deck
+								</Button>
+							</Link>
 							<Button variant="outline" size="sm">
 								Edit
 							</Button>
