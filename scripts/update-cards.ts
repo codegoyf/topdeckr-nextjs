@@ -135,7 +135,7 @@ async function updateCardsEfficient() {
 					}
 				},
 				{
-					timeout: 10000, // 10 second timeout per batch
+					timeout: 20000, // 10 second timeout per batch
 				},
 			);
 
